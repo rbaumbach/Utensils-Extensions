@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "94341AF8238CCECF00BC8355"
-               BuildableName = "Utensils_Extensions.framework"
+               BuildableName = "UtensilsExtensions.framework"
                BlueprintName = "Utensils+Extensions"
                ReferencedContainer = "container:Utensils+Extensions.xcodeproj">
             </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "94341AF8238CCECF00BC8355"
-            BuildableName = "Utensils_Extensions.framework"
+            BuildableName = "UtensilsExtensions.framework"
             BlueprintName = "Utensils+Extensions"
             ReferencedContainer = "container:Utensils+Extensions.xcodeproj">
          </BuildableReference>

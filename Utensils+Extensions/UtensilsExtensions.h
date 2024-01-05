@@ -22,8 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
-//! Project version number for Utensils_Extensions.
-FOUNDATION_EXPORT double Utensils_ExtensionsVersionNumber;
+//! Project version number for UtensilsExtensions.
+FOUNDATION_EXPORT double UtensilsExtensionsVersionNumber;
 
-//! Project version string for Utensils_Extensions.
-FOUNDATION_EXPORT const unsigned char Utensils_ExtensionsVersionString[];
+//! Project version string for UtensilsExtensions.
+FOUNDATION_EXPORT const unsigned char UtensilsExtensionsVersionString[];

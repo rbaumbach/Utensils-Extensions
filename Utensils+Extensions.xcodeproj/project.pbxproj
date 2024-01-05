@@ -10,7 +10,6 @@
 		1A8716D41CE37C0A57CAB345 /* Pods_Utensils_Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472766314FC71F9C8F5DE2A /* Pods_Utensils_Extensions.framework */; };
 		3FE2768D40FFC62F4A38EF7B /* Pods_IntegrationSpecs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B1C02B3B0C85B64BD70A64 /* Pods_IntegrationSpecs.framework */; };
 		9404C5A02B45C0DA001626C8 /* PequenoNetworking+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404C59F2B45C0DA001626C8 /* PequenoNetworking+Async.swift */; };
-		94341AFE238CCECF00BC8355 /* Utensils_Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 94341AFC238CCECF00BC8355 /* Utensils_Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		944A011E238D7CBD00957702 /* UtensilsExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94341AF9238CCECF00BC8355 /* UtensilsExtensions.framework */; };
 		94569E202B28EC93008494E1 /* UtensilsExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94341AF9238CCECF00BC8355 /* UtensilsExtensions.framework */; platformFilter = ios; };
 		94569E552B2FE491008494E1 /* PequenoNetworking+AsyncSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94569E542B2FE491008494E1 /* PequenoNetworking+AsyncSpec.swift */; };
@@ -19,6 +18,7 @@
 		94BCF3122B45C722008A5D78 /* SomeTestFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCF3102B45C708008A5D78 /* SomeTestFunctions.swift */; };
 		94BCF3152B45C75A008A5D78 /* SpecModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCF3142B45C75A008A5D78 /* SpecModels.swift */; };
 		94BCF3182B4847B1008A5D78 /* FakePequenoNetworkingAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCF3172B4847B1008A5D78 /* FakePequenoNetworkingAsync.swift */; };
+		94BCF31E2B48C8B7008A5D78 /* UtensilsExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 94BCF31D2B48C8B7008A5D78 /* UtensilsExtensions.h */; };
 		B5E550455FFB89D8D681CB4A /* Pods_Specs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554006A33EF92365B117E4B1 /* Pods_Specs.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +62,6 @@
 		57BA879D37431BA2F24909FB /* Pods-Utensils+Extensions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utensils+Extensions.debug.xcconfig"; path = "Target Support Files/Pods-Utensils+Extensions/Pods-Utensils+Extensions.debug.xcconfig"; sourceTree = "<group>"; };
 		9404C59F2B45C0DA001626C8 /* PequenoNetworking+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PequenoNetworking+Async.swift"; sourceTree = "<group>"; };
 		94341AF9238CCECF00BC8355 /* UtensilsExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UtensilsExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		94341AFC238CCECF00BC8355 /* Utensils_Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utensils_Extensions.h; sourceTree = "<group>"; };
 		94341AFD238CCECF00BC8355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		944A0119238D7CBD00957702 /* Specs.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Specs.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		944A011D238D7CBD00957702 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +71,7 @@
 		94BCF3102B45C708008A5D78 /* SomeTestFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeTestFunctions.swift; sourceTree = "<group>"; };
 		94BCF3142B45C75A008A5D78 /* SpecModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecModels.swift; sourceTree = "<group>"; };
 		94BCF3172B4847B1008A5D78 /* FakePequenoNetworkingAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakePequenoNetworkingAsync.swift; sourceTree = "<group>"; };
+		94BCF31D2B48C8B7008A5D78 /* UtensilsExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtensilsExtensions.h; sourceTree = "<group>"; };
 		9816847F8D8098743D2976F4 /* Pods-Utensils+Extensions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utensils+Extensions.release.xcconfig"; path = "Target Support Files/Pods-Utensils+Extensions/Pods-Utensils+Extensions.release.xcconfig"; sourceTree = "<group>"; };
 		E8B1C02B3B0C85B64BD70A64 /* Pods_IntegrationSpecs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntegrationSpecs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -170,7 +170,7 @@
 		94341AFB238CCECF00BC8355 /* Utensils+Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				94341AFC238CCECF00BC8355 /* Utensils_Extensions.h */,
+				94BCF31D2B48C8B7008A5D78 /* UtensilsExtensions.h */,
 				94341AFD238CCECF00BC8355 /* Info.plist */,
 			);
 			path = "Utensils+Extensions";
@@ -236,7 +236,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94341AFE238CCECF00BC8355 /* Utensils_Extensions.h in Headers */,
+				94BCF31E2B48C8B7008A5D78 /* UtensilsExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

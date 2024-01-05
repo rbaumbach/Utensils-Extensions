@@ -24,6 +24,9 @@ import Foundation
 import Capsule
 import Utensils
 
+// Note: Any? is used for the stubbed values due to warning messages about "shadowing" at the
+// class level. As a consumer you can cast to T.
+
 public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
     // MARK: - Captured properties
     

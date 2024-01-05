@@ -24,7 +24,7 @@ import Foundation
 import Capsule
 import Utensils
 
-public class FakePequenoNetworkingAsync {
+public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
     // MARK: - Captured properties
     
     // MARK: - JSONSerialization (ol' skoo)

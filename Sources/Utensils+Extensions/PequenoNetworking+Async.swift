@@ -23,7 +23,7 @@
 import Foundation
 import Utensils
 
-public protocol PequenoNetworkingAsyncProtocol: PequenoNetworkingProtocol {
+public protocol PequenoNetworkingAsyncProtocol {
     func get(endpoint: String,
              parameters: [String: String]?) async throws -> Any
     

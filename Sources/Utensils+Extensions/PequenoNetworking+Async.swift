@@ -23,6 +23,38 @@
 import Foundation
 import Utensils
 
+public protocol PequenoNetworkingAsyncProtocol: PequenoNetworkingProtocol {
+    func get(endpoint: String,
+             parameters: [String: String]?) async throws -> Any
+    
+    func delete(endpoint: String,
+                parameters: [String: String]?) async throws -> Any
+    
+    func post(endpoint: String,
+              body: [String: Any]?) async throws -> Any
+    
+    func put(endpoint: String,
+             body: [String: Any]?) async throws -> Any
+    
+    func patch(endpoint: String,
+               body: [String: Any]?) async throws -> Any
+    
+    func get<T: Codable>(endpoint: String,
+                         parameters: [String: String]?) async throws -> T
+    
+    func delete<T: Codable>(endpoint: String,
+                            parameters: [String: String]?) async throws -> T
+    
+    func post<T: Codable>(endpoint: String,
+                          body: [String: Any]?) async throws -> T
+    
+    func put<T: Codable>(endpoint: String,
+                         body: [String: Any]?) async throws -> T
+    
+    func patch<T: Codable>(endpoint: String,
+                           body: [String: Any]?) async throws -> T
+}
+
 public extension PequenoNetworking {
     // MARK: - Public methods
     
@@ -59,7 +91,8 @@ public extension PequenoNetworking {
     func put(endpoint: String,
              body: [String: Any]?) async throws -> Any {
         return try await withCheckedThrowingContinuation { continuation in
-            put(endpoint: endpoint, body: body) { result in
+            put(endpoint: endpoint, 
+                body: body) { result in
                 continuation.resume(with: result)
             }
         }

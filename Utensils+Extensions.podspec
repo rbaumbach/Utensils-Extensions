@@ -12,5 +12,6 @@ Pod::Spec.new do |spec|
   spec.source_files          = 'Sources/Utensils+Extensions/**/*.{swift}'
   spec.swift_version         = '5.5'
   
-  spec.dependency 'Utensils', '~> 0.3.0'
+  spec.dependency 'Utensils',  '~> 0.3.0'
+  spec.dependency 'Capsule',   '~> 1.4.0'
 end

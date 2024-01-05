@@ -6,8 +6,6 @@ This project extends [Utensils](https://github.com/rbaumbach/Utensils), by allow
 
 ### CocoaPods
 
-TBD
-
 [CocoaPods](http://cocoapods.org) is the recommended way to add Utensils to your project.
 
 1.  Add Utensils to your Podfile `pod 'Utensils+Extensions'`.
@@ -15,8 +13,6 @@ TBD
 3.  Add Utensils to your files with `import Utensils+Extensions`.
 
 ### Swift Package manager
-
-TBD
 
 [Swift Package Manager](https://swift.org/package-manager/) can be used to add `Utensils+Extensions` the to your project:
 

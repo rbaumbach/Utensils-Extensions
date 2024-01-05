@@ -39,13 +39,17 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/rbaumbach/Utensils",
-            from: "0.3.0"
+            from: "0.3.2"
+        )
+        .package(
+            url: "https://github.com/rbaumbach/Capsule",
+            from: "1.4.0"
         )
     ],
     targets: [
         .target(
             name: "Utensils+Extensions",
-            dependencies: ["Utensils"]
+            dependencies: ["Utensils", "Capsule"]
         )
     ],
     swiftLanguageVersions: [.v5]

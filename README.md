@@ -10,7 +10,7 @@ This project extends [Utensils](https://github.com/rbaumbach/Utensils), by allow
 
 1.  Add Utensils to your Podfile `pod 'Utensils+Extensions'`.
 2.  Install the pod(s) by running `pod install`.
-3.  Add Utensils to your files with `import Utensils+Extensions`.
+3.  Add Utensils to your files with `import UtensilsExtensions`.
 
 ### Swift Package manager
 
@@ -18,6 +18,7 @@ This project extends [Utensils](https://github.com/rbaumbach/Utensils), by allow
 
 1.  Add `.package(url: "https://github.com/rbaumbach/Utensils+Extensions", from: "0.0.2")`
 2.  [Follow intructions to add](https://swift.org/getting-started/#using-the-package-manager) the Utensils package to your project.
+3.  Add Utensils to your files with `import Utensils_Extensions`.
 
 ### Clone from Github
 

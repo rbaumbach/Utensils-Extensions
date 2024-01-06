@@ -6,6 +6,7 @@ Pod::Spec.new do |spec|
   spec.license               = { :type => 'MIT', :file => 'MIT-LICENSE.txt' }
   spec.author                = { 'Ryan Baumbach' => 'github@ryan.codes' }
   spec.source                = { :git => 'https://github.com/rbaumbach/Utensils-Extensions.git', :tag => spec.version.to_s }
+  spec.module_name           = 'UtensilsExtensions'
   spec.requires_arc          = true
   spec.platform              = :ios
   spec.ios.deployment_target = '13.0'

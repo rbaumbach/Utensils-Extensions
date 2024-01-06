@@ -40,7 +40,7 @@ let package = Package(
         .package(
             url: "https://github.com/rbaumbach/Utensils",
             from: "0.3.2"
-        )
+        ),
         .package(
             url: "https://github.com/rbaumbach/Capsule",
             from: "1.4.0"

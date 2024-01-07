@@ -21,8 +21,8 @@
 //SOFTWARE.
 
 import Foundation
-import Utensils
 import Combine
+import Utensils
 
 public protocol PequenoNetworkingCombineProtocol {
     // MARK: - JSONSerialization (ol' skoo)
@@ -151,3 +151,30 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
         }
     }
 }
+
+// experiments in hacking futures for combine
+
+public class FakeCancellable: Cancellable {
+    // MARK: - Captured properties
+    
+    public var didCallCancel = false
+    
+    // MARK: - <Cancellable>
+    
+    public func cancel() {
+        didCallCancel = true
+    }
+}
+
+public protocol FutureProtocol {
+    associatedtype Output
+    associatedtype Failure: Error
+    
+    func sink(receiveCompletion: @escaping ((Subscribers.Completion<Self.Failure>) -> Void),
+              receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable
+}
+
+extension Future: FutureProtocol { }
+
+// Future is a class that extends the protocol Publisher
+// Publisher is a protocol that has a protocol extension for the sink() method

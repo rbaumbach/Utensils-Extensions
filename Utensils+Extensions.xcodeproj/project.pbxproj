@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1A8716D41CE37C0A57CAB345 /* Pods_Utensils_Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472766314FC71F9C8F5DE2A /* Pods_Utensils_Extensions.framework */; };
+		35A4B2AB1F785E00E32B979A /* FakePequenoNetworkingAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A4B412E3978A99B9F37F98 /* FakePequenoNetworkingAsync.swift */; };
 		35A4B93D83727A9AFEAE6575 /* PequenoNetworking+CombineIntegrationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A4BC255B0C60E3378860AB /* PequenoNetworking+CombineIntegrationSpec.swift */; };
+		35A4B9DD4207A967DD6D752F /* FakePequenoNetworkingCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A4B0F3B5A73C91FF8E8D72 /* FakePequenoNetworkingCombine.swift */; };
+		35A4BF58F2245E2037CBFA4E /* PequenoNetworking+CombineSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A4B8BD960F9EFC6087A939 /* PequenoNetworking+CombineSpec.swift */; };
 		3FE2768D40FFC62F4A38EF7B /* Pods_IntegrationSpecs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B1C02B3B0C85B64BD70A64 /* Pods_IntegrationSpecs.framework */; };
 		9404C5A02B45C0DA001626C8 /* PequenoNetworking+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404C59F2B45C0DA001626C8 /* PequenoNetworking+Async.swift */; };
-		94259CF72B4A0D5400CD22AA /* FakePequenoNetworkingAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94259CF62B4A0D5300CD22AA /* FakePequenoNetworkingAsync.swift */; };
 		94259CF92B4A0D6600CD22AA /* PequenoNetworking+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94259CF82B4A0D6600CD22AA /* PequenoNetworking+Combine.swift */; };
 		944A011E238D7CBD00957702 /* UtensilsExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94341AF9238CCECF00BC8355 /* UtensilsExtensions.framework */; };
 		94569E202B28EC93008494E1 /* UtensilsExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94341AF9238CCECF00BC8355 /* UtensilsExtensions.framework */; platformFilter = ios; };
@@ -58,13 +60,15 @@
 		003A2466EA39695A873D1671 /* Pods-Specs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Specs.debug.xcconfig"; path = "Target Support Files/Pods-Specs/Pods-Specs.debug.xcconfig"; sourceTree = "<group>"; };
 		13ADECF91DFE44EBA3FAE68F /* Pods-Specs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Specs.release.xcconfig"; path = "Target Support Files/Pods-Specs/Pods-Specs.release.xcconfig"; sourceTree = "<group>"; };
 		235A088FDB085B0A93FBE8CF /* Pods-IntegrationSpecs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationSpecs.release.xcconfig"; path = "Target Support Files/Pods-IntegrationSpecs/Pods-IntegrationSpecs.release.xcconfig"; sourceTree = "<group>"; };
+		35A4B0F3B5A73C91FF8E8D72 /* FakePequenoNetworkingCombine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePequenoNetworkingCombine.swift; sourceTree = "<group>"; };
+		35A4B412E3978A99B9F37F98 /* FakePequenoNetworkingAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePequenoNetworkingAsync.swift; sourceTree = "<group>"; };
+		35A4B8BD960F9EFC6087A939 /* PequenoNetworking+CombineSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PequenoNetworking+CombineSpec.swift"; sourceTree = "<group>"; };
 		35A4BC255B0C60E3378860AB /* PequenoNetworking+CombineIntegrationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PequenoNetworking+CombineIntegrationSpec.swift"; sourceTree = "<group>"; };
 		4F3B9BB65EFADA24F37A1C69 /* Pods-IntegrationSpecs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationSpecs.debug.xcconfig"; path = "Target Support Files/Pods-IntegrationSpecs/Pods-IntegrationSpecs.debug.xcconfig"; sourceTree = "<group>"; };
 		5472766314FC71F9C8F5DE2A /* Pods_Utensils_Extensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Utensils_Extensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		554006A33EF92365B117E4B1 /* Pods_Specs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Specs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57BA879D37431BA2F24909FB /* Pods-Utensils+Extensions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utensils+Extensions.debug.xcconfig"; path = "Target Support Files/Pods-Utensils+Extensions/Pods-Utensils+Extensions.debug.xcconfig"; sourceTree = "<group>"; };
 		9404C59F2B45C0DA001626C8 /* PequenoNetworking+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PequenoNetworking+Async.swift"; sourceTree = "<group>"; };
-		94259CF62B4A0D5300CD22AA /* FakePequenoNetworkingAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePequenoNetworkingAsync.swift; sourceTree = "<group>"; };
 		94259CF82B4A0D6600CD22AA /* PequenoNetworking+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PequenoNetworking+Combine.swift"; sourceTree = "<group>"; };
 		94341AF9238CCECF00BC8355 /* UtensilsExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UtensilsExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94341AFD238CCECF00BC8355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -150,7 +154,8 @@
 		94259CF52B4A0D2D00CD22AA /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
-				94259CF62B4A0D5300CD22AA /* FakePequenoNetworkingAsync.swift */,
+				35A4B412E3978A99B9F37F98 /* FakePequenoNetworkingAsync.swift */,
+				35A4B0F3B5A73C91FF8E8D72 /* FakePequenoNetworkingCombine.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -190,8 +195,9 @@
 		944A011A238D7CBD00957702 /* Specs */ = {
 			isa = PBXGroup;
 			children = (
-				94BCF30F2B45C6F1008A5D78 /* Spec Files */,
 				94569E542B2FE491008494E1 /* PequenoNetworking+AsyncSpec.swift */,
+				35A4B8BD960F9EFC6087A939 /* PequenoNetworking+CombineSpec.swift */,
+				94BCF30F2B45C6F1008A5D78 /* Spec Files */,
 				9406829C238D7D0E004278CB /* Supporting Files */,
 			);
 			path = Specs;
@@ -511,9 +517,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94259CF72B4A0D5400CD22AA /* FakePequenoNetworkingAsync.swift in Sources */,
 				9404C5A02B45C0DA001626C8 /* PequenoNetworking+Async.swift in Sources */,
 				94259CF92B4A0D6600CD22AA /* PequenoNetworking+Combine.swift in Sources */,
+				35A4B9DD4207A967DD6D752F /* FakePequenoNetworkingCombine.swift in Sources */,
+				35A4B2AB1F785E00E32B979A /* FakePequenoNetworkingAsync.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +530,7 @@
 			files = (
 				94569E552B2FE491008494E1 /* PequenoNetworking+AsyncSpec.swift in Sources */,
 				94BCF3112B45C708008A5D78 /* SomeTestFunctions.swift in Sources */,
+				35A4BF58F2245E2037CBFA4E /* PequenoNetworking+CombineSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,7 +616,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -668,7 +676,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -701,7 +709,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = "teamthick.utensils-extensions";
@@ -738,7 +746,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = "teamthick.utensils-extensions";

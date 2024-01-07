@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name                  = 'Utensils+Extensions'
-  spec.version               = '0.0.4'
+  spec.version               = '0.0.5'
   spec.summary               = 'An extension of Utentils with newer tooling and functionality'
   spec.homepage              = 'https://github.com/rbaumbach/utensils-extensions'
   spec.license               = { :type => 'MIT', :file => 'MIT-LICENSE.txt' }

@@ -24,7 +24,6 @@ import Foundation
 import Combine
 import Capsule
 import Utensils
-import UtensilsExtensions
 
 // Note: Result<Any, PequenoNetworking.Error> is used for the stubbed results due to
 // warning messages about "shadowing" at the class level.

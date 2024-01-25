@@ -1,20 +1,20 @@
 PODS:
-  - Capsule (1.4.0)
+  - Capsule (1.5.0)
   - Moocher (0.4.0):
     - Moocher/Core (= 0.4.0)
   - Moocher/Core (0.4.0)
   - Moocher/Polling (0.4.0)
   - Quick (7.3.0)
   - SwiftLint (0.54.0)
-  - Utensils (0.3.2):
-    - Capsule (~> 1.4.0)
+  - Utensils (0.5.0):
+    - Capsule (~> 1.5.0)
 
 DEPENDENCIES:
   - Moocher (= 0.4.0)
   - Moocher/Polling (= 0.4.0)
   - Quick (= 7.3.0)
   - SwiftLint (= 0.54.0)
-  - Utensils (= 0.3.2)
+  - Utensils (= 0.5.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -25,12 +25,12 @@ SPEC REPOS:
     - Utensils
 
 SPEC CHECKSUMS:
-  Capsule: 51717c6fb9beac5c66f9cd824a0d8083ec45b52c
+  Capsule: ddb7fff44e44863c1cdeffedbcaf2659c875148a
   Moocher: 4c5f38df3caf6d4664e525a7e119584ad6614680
   Quick: d32871931c05547cb4e0bc9009d66a18b50d8558
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
-  Utensils: 3e11a14de852355681b78cf87b40174255e87dd5
+  Utensils: d01a57be2bc0ae52be0e007a5cc0ccdf87b068af
 
-PODFILE CHECKSUM: df4f8505ee478fa898bb6017ab496c8e96bf33a2
+PODFILE CHECKSUM: 5447c532926d2be69ccb3c829f9b4eba08a4fb28
 
 COCOAPODS: 1.14.3

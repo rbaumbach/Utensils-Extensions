@@ -10,7 +10,7 @@ def shared_spec_pods
 end
 
 target 'Utensils+Extensions' do
-  pod 'Utensils', '0.3.2'
+  pod 'Utensils', '0.5.0'
   pod 'SwiftLint', '0.54.0'
 end
 

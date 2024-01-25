@@ -24,6 +24,8 @@ import Foundation
 import Utensils
 
 public protocol PequenoNetworkingAsyncProtocol {
+    // MARK: - JSONSerialization (ol' skoo)
+    
     func get(endpoint: String,
              parameters: [String: String]?) async throws -> Any
     
@@ -39,6 +41,8 @@ public protocol PequenoNetworkingAsyncProtocol {
     func patch(endpoint: String,
                body: [String: Any]?) async throws -> Any
     
+    // MARK: - Codable
+    
     func get<T: Codable>(endpoint: String,
                          parameters: [String: String]?) async throws -> T
     
@@ -53,6 +57,21 @@ public protocol PequenoNetworkingAsyncProtocol {
     
     func patch<T: Codable>(endpoint: String,
                            body: [String: Any]?) async throws -> T
+    
+    // MARK: - File transfers
+    
+    func downloadFile(endpoint: String,
+                      parameters: [String: String]?,
+                      filename: String,
+                      directory: Directory) async throws -> URL
+    
+    func uploadFile(endpoint: String,
+                    parameters: [String: String]?,
+                    data: Data) async throws -> Any
+    
+    func uploadFile<T: Codable>(endpoint: String,
+                                parameters: [String: String]?,
+                                data: Data) async throws -> T
 }
 
 extension PequenoNetworking: PequenoNetworkingAsyncProtocol {
@@ -150,7 +169,46 @@ extension PequenoNetworking: PequenoNetworkingAsyncProtocol {
     public func patch<T: Codable>(endpoint: String,
                                   body: [String: Any]?) async throws -> T {
         return try await withCheckedThrowingContinuation { continuation in
-            patch(endpoint: endpoint, body: body) { result in
+            patch(endpoint: endpoint, 
+                  body: body) { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
+    
+    public func downloadFile(endpoint: String,
+                             parameters: [String: String]?,
+                             filename: String,
+                             directory: Directory) async throws -> URL {
+        return try await withCheckedThrowingContinuation { continuation in
+            downloadFile(endpoint: endpoint,
+                         parameters: parameters,
+                         filename: filename,
+                         directory: directory) { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
+    
+    public func uploadFile(endpoint: String,
+                           parameters: [String: String]?,
+                           data: Data) async throws -> Any {
+        return try await withCheckedThrowingContinuation { continuation in
+            uploadFile(endpoint: endpoint,
+                       parameters: parameters,
+                       data: data) { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
+    
+    public func uploadFile<T: Codable>(endpoint: String,
+                                       parameters: [String: String]?,
+                                       data: Data) async throws -> T {
+        return try await withCheckedThrowingContinuation { continuation in
+            uploadFile(endpoint: endpoint, 
+                       parameters: parameters,
+                       data: data) { result in
                 continuation.resume(with: result)
             }
         }

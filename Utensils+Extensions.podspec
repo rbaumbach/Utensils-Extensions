@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name                  = 'Utensils+Extensions'
-  spec.version               = '0.0.5'
+  spec.version               = '0.1.0'
   spec.summary               = 'An extension of Utentils with newer tooling and functionality'
   spec.homepage              = 'https://github.com/rbaumbach/utensils-extensions'
   spec.license               = { :type => 'MIT', :file => 'MIT-LICENSE.txt' }
@@ -13,6 +13,6 @@ Pod::Spec.new do |spec|
   spec.source_files          = 'Sources/Utensils+Extensions/**/*.{swift}'
   spec.swift_version         = '5.5'
   
-  spec.dependency 'Utensils',  '~> 0.3.0'
-  spec.dependency 'Capsule',   '~> 1.4.0'
+  spec.dependency 'Utensils',  '~> 0.5.0'
+  spec.dependency 'Capsule',   '~> 1.5.0'
 end

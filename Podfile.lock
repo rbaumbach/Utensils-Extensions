@@ -10,6 +10,7 @@ PODS:
     - Capsule (~> 1.5.0)
 
 DEPENDENCIES:
+  - Capsule (= 1.5.0)
   - Moocher (= 0.4.0)
   - Moocher/Polling (= 0.4.0)
   - Quick (= 7.3.0)
@@ -31,6 +32,6 @@ SPEC CHECKSUMS:
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
   Utensils: d01a57be2bc0ae52be0e007a5cc0ccdf87b068af
 
-PODFILE CHECKSUM: 5447c532926d2be69ccb3c829f9b4eba08a4fb28
+PODFILE CHECKSUM: 303b36311307f24e0cf3f4435ca20dc61429a9e4
 
 COCOAPODS: 1.14.3

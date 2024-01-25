@@ -16,7 +16,7 @@ This project extends [Utensils](https://github.com/rbaumbach/Utensils), by allow
 
 [Swift Package Manager](https://swift.org/package-manager/) can be used to add `Utensils+Extensions` the to your project:
 
-1.  Add `.package(url: "https://github.com/rbaumbach/Utensils+Extensions", from: "0.0.5")`
+1.  Add `.package(url: "https://github.com/rbaumbach/Utensils+Extensions", from: "0.1.0")`
 2.  [Follow intructions to add](https://swift.org/getting-started/#using-the-package-manager) the Utensils package to your project.
 3.  Add Utensils to your files with `import Utensils_Extensions`.
 
@@ -27,7 +27,7 @@ This project extends [Utensils](https://github.com/rbaumbach/Utensils), by allow
 
 ## What tools are extended?
 
-* Extending the "pequeno" networker to include `async` versions of networking requests
+* Extending the "pequeno" networker to include `async` versions of networking requests:
 
 ```swift
 let networker = PequenoNetworking(baseURL: "https://dogsrbettahthancats.party")
@@ -36,6 +36,14 @@ let model = try await subject.get(endpoint: "/dogs",
                                   headers: ["version": "v1"],
                                   parameters: ["breed": "chihuahua"])
 ```
+
+* Also extending it to include `combine` versions of the networking requests:
+
+```swift
+let networker = PequenoNetworking(baseURL: "https://dogsrbettahthancats.party")
+
+let future = subject.get(endpoint: "/get",
+                         parameters: nil)
 
 Note: Methods exist for both `Any` and codable json responses
 

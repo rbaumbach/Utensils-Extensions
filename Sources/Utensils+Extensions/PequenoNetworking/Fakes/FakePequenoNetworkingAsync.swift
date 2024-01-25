@@ -27,7 +27,7 @@ import Utensils
 // Note: Any? is used for the stubbed values due to warning messages about "shadowing" at the
 // class level. As a consumer you can cast to T.
 
-public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
+public class FakePequenoNetworkingAsync: Fake, PequenoNetworkingAsyncProtocol {
     // MARK: - Captured properties
     
     // MARK: - JSONSerialization (ol' skoo)
@@ -129,11 +129,11 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
     
     // MARK: - Init methods
     
-    public init() { }
+    public override init() { }
     
     // MARK: - <PequenoNetworkingAsyncProtocol>
     
-    public func get(endpoint: String, 
+    public func get(endpoint: String,
                     parameters: [String: String]?) async throws -> Any {
         capturedGetEndpoint = endpoint
         capturedGetParameters = parameters
@@ -145,7 +145,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return stubbedGet
     }
     
-    public func delete(endpoint: String, 
+    public func delete(endpoint: String,
                        parameters: [String: String]?) async throws -> Any {
         capturedDeleteEndpoint = endpoint
         capturedDeleteParameters = parameters
@@ -157,7 +157,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return stubbedDelete
     }
     
-    public func post(endpoint: String, 
+    public func post(endpoint: String,
                      body: [String: Any]?) async throws -> Any {
         capturedPostEndpoint = endpoint
         capturedPostBody = body
@@ -169,7 +169,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return stubbedPost
     }
     
-    public func put(endpoint: String, 
+    public func put(endpoint: String,
                     body: [String: Any]?) async throws -> Any {
         capturedPutEndpoint = endpoint
         capturedPutBody = body
@@ -181,7 +181,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return stubbedPut
     }
     
-    public func patch(endpoint: String, 
+    public func patch(endpoint: String,
                       body: [String: Any]?) async throws -> Any {
         capturedPatchEndpoint = endpoint
         capturedPatchBody = body
@@ -232,7 +232,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return typedStubbedValue
     }
     
-    public func put<T: Codable>(endpoint: String, 
+    public func put<T: Codable>(endpoint: String,
                                 body: [String: Any]?) async throws -> T {
         if shouldThrowCodablePutError {
             throw FakeGenericError.whoCares
@@ -258,7 +258,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return typedStubbedValue
     }
     
-    public func downloadFile(endpoint: String, 
+    public func downloadFile(endpoint: String,
                              parameters: [String: String]?,
                              filename: String,
                              directory: Directory) async throws -> URL {

@@ -28,7 +28,7 @@ import Utensils
 // Note: Result<Any, Error> is used for the stubbed results due to
 // warning messages about "shadowing" at the class level.
 
-public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
+public class FakePequenoNetworkingCombine: Fake, PequenoNetworkingCombineProtocol {
     // MARK: - Captured properties
     
     // MARK: - JSONSerialization (ol' skoo)
@@ -106,7 +106,7 @@ public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
     
     // MARK: - Init methods
     
-    public init() { }
+    public override init() { }
     
     // MARK: - <PequenoNetworkingCombineProtocol>
     

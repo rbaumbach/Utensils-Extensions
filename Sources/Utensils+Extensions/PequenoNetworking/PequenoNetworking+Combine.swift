@@ -28,41 +28,56 @@ public protocol PequenoNetworkingCombineProtocol {
     // MARK: - JSONSerialization (ol' skoo)
     
     func get(endpoint: String,
-             parameters: [String: String]?) -> Future<Any, PequenoNetworking.Error>
+             parameters: [String: String]?) -> Future<Any, Error>
     
     func delete(endpoint: String,
-                parameters: [String: String]?) -> Future<Any, PequenoNetworking.Error>
+                parameters: [String: String]?) -> Future<Any, Error>
     
     func post(endpoint: String,
-              body: [String: Any]?) -> Future<Any, PequenoNetworking.Error>
+              body: [String: Any]?) -> Future<Any, Error>
     
     func put(endpoint: String,
-             body: [String: Any]?) -> Future<Any, PequenoNetworking.Error>
+             body: [String: Any]?) -> Future<Any, Error>
     
     func patch(endpoint: String,
-               body: [String: Any]?) -> Future<Any, PequenoNetworking.Error>
+               body: [String: Any]?) -> Future<Any, Error>
     
     // MARK: - Codable
     
     func get<T: Codable>(endpoint: String,
-                         parameters: [String: String]?) -> Future<T, PequenoNetworking.Error>
+                         parameters: [String: String]?) -> Future<T, Error>
     
     func delete<T: Codable>(endpoint: String,
-                            parameters: [String: String]?) -> Future<T, PequenoNetworking.Error>
+                            parameters: [String: String]?) -> Future<T, Error>
     
     func post<T: Codable>(endpoint: String,
-                          body: [String: Any]?) -> Future<T, PequenoNetworking.Error>
+                          body: [String: Any]?) -> Future<T, Error>
     
     func put<T: Codable>(endpoint: String,
-                         body: [String: Any]?) -> Future<T, PequenoNetworking.Error>
+                         body: [String: Any]?) -> Future<T, Error>
     
     func patch<T: Codable>(endpoint: String,
-                           body: [String: Any]?) -> Future<T, PequenoNetworking.Error>
+                           body: [String: Any]?) -> Future<T, Error>
+    
+    // MARK: - File transfers
+    
+    func downloadFile(endpoint: String,
+                      parameters: [String: String]?,
+                      filename: String,
+                      directory: Directory) -> Future<URL, Error>
+    
+    func uploadFile(endpoint: String,
+                    parameters: [String: String]?,
+                    data: Data) -> Future<Any, Error>
+    
+    func uploadFile<T: Codable>(endpoint: String,
+                                parameters: [String: String]?,
+                                data: Data) -> Future<T, Error> 
 }
 
 extension PequenoNetworking: PequenoNetworkingCombineProtocol {
     public func get(endpoint: String,
-                    parameters: [String: String]?) -> Future<Any, PequenoNetworking.Error> {
+                    parameters: [String: String]?) -> Future<Any, Error> {
         return Future { [weak self] promise in
             self?.get(endpoint: endpoint,
                       parameters: parameters,
@@ -71,7 +86,7 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
     }
     
     public func delete(endpoint: String,
-                       parameters: [String: String]?) -> Future<Any, PequenoNetworking.Error> {
+                       parameters: [String: String]?) -> Future<Any, Error> {
         return Future { [weak self] promise in
             self?.delete(endpoint: endpoint,
                          parameters: parameters,
@@ -79,8 +94,8 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
         }
     }
     
-    public func post(endpoint: String, 
-                     body: [String: Any]?) -> Future<Any, PequenoNetworking.Error> {
+    public func post(endpoint: String,
+                     body: [String: Any]?) -> Future<Any, Error> {
         return Future { [weak self] promise in
             self?.post(endpoint: endpoint,
                        body: body,
@@ -89,7 +104,7 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
     }
     
     public func put(endpoint: String,
-                    body: [String: Any]?) -> Future<Any, PequenoNetworking.Error> {
+                    body: [String: Any]?) -> Future<Any, Error> {
         return Future { [weak self] promise in
             self?.put(endpoint: endpoint,
                       body: body,
@@ -98,7 +113,7 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
     }
     
     public func patch(endpoint: String,
-                      body: [String: Any]?) -> Future<Any, PequenoNetworking.Error> {
+                      body: [String: Any]?) -> Future<Any, Error> {
         return Future { [weak self] promise in
             self?.patch(endpoint: endpoint,
                         body: body,
@@ -106,8 +121,8 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
         }
     }
     
-    public func get<T: Codable>(endpoint: String, 
-                                parameters: [String: String]?) -> Future<T, PequenoNetworking.Error> {
+    public func get<T: Codable>(endpoint: String,
+                                parameters: [String: String]?) -> Future<T, Error> {
         return Future { [weak self] promise in
             self?.get(endpoint: endpoint,
                       parameters: parameters,
@@ -116,7 +131,7 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
     }
     
     public func delete<T: Codable>(endpoint: String,
-                                   parameters: [String: String]?) -> Future<T, PequenoNetworking.Error> {
+                                   parameters: [String: String]?) -> Future<T, Error> {
         return Future { [weak self] promise in
             self?.delete(endpoint: endpoint,
                          parameters: parameters,
@@ -125,7 +140,7 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
     }
     
     public func post<T: Codable>(endpoint: String,
-                                 body: [String: Any]?) -> Future<T, PequenoNetworking.Error> {
+                                 body: [String: Any]?) -> Future<T, Error> {
         return Future { [weak self] promise in
             self?.post(endpoint: endpoint,
                        body: body,
@@ -134,7 +149,7 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
     }
     
     public func put<T: Codable>(endpoint: String,
-                                body: [String: Any]?) -> Future<T, PequenoNetworking.Error> {
+                                body: [String: Any]?) -> Future<T, Error> {
         return Future { [weak self] promise in
             self?.put(endpoint: endpoint,
                       body: body,
@@ -143,38 +158,46 @@ extension PequenoNetworking: PequenoNetworkingCombineProtocol {
     }
     
     public func patch<T: Codable>(endpoint: String,
-                                  body: [String: Any]?) -> Future<T, PequenoNetworking.Error> {
+                                  body: [String: Any]?) -> Future<T, Error> {
         return Future { [weak self] promise in
             self?.patch(endpoint: endpoint,
                         body: body,
                         completionHandler: promise)
         }
     }
-}
-
-// experiments in hacking futures for combine
-
-public class FakeCancellable: Cancellable {
-    // MARK: - Captured properties
     
-    public var didCallCancel = false
+    public func downloadFile(endpoint: String,
+                             parameters: [String: String]?,
+                             filename: String,
+                             directory: Directory) -> Future<URL, Error> {
+        return Future { [weak self] promise in
+            self?.downloadFile(endpoint: endpoint,
+                               parameters: parameters,
+                               filename: filename,
+                               directory: directory,
+                               completionHandler: promise)
+        }
+    }
     
-    // MARK: - <Cancellable>
+    public func uploadFile(endpoint: String,
+                           parameters: [String: String]?,
+                           data: Data) -> Future<Any, Error> {
+        return Future { [weak self] promise in
+            self?.uploadFile(endpoint: endpoint,
+                             parameters: parameters,
+                             data: data,
+                             completionHandler: promise)
+        }
+    }
     
-    public func cancel() {
-        didCallCancel = true
+    public func uploadFile<T: Codable>(endpoint: String,
+                                       parameters: [String: String]?,
+                                       data: Data) -> Future<T, Error> {
+        return Future { [weak self] promise in
+            self?.uploadFile(endpoint: endpoint,
+                             parameters: parameters,
+                             data: data,
+                             completionHandler: promise)
+        }
     }
 }
-
-public protocol FutureProtocol {
-    associatedtype Output
-    associatedtype Failure: Error
-    
-    func sink(receiveCompletion: @escaping ((Subscribers.Completion<Self.Failure>) -> Void),
-              receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable
-}
-
-extension Future: FutureProtocol { }
-
-// Future is a class that extends the protocol Publisher
-// Publisher is a protocol that has a protocol extension for the sink() method

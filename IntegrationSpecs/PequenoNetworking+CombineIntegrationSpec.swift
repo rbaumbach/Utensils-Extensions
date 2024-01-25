@@ -152,7 +152,7 @@ final class PequenoNetworking_CombineIntegrationSpec: QuickSpec {
             }
             
             describe("using Codable") {
-                var future: Future<HTTPBin, PequenoNetworking.Error>!
+                var future: Future<HTTPBin, Error>!
                 
                 describe("GET request") {
                     beforeEach {
@@ -265,6 +265,115 @@ final class PequenoNetworking_CombineIntegrationSpec: QuickSpec {
                                 
                                 complete()
                             }.store(in: &subscribers)
+                        }
+                    }
+                }
+            }
+            
+            describe("file transfers") {
+                describe("downloading") {
+                    it("completes with file url") {
+                        hangOn(for: .seconds(5)) { complete in
+                            subject.downloadFile(endpoint: "/image/jpeg",
+                                                 parameters: nil,
+                                                 filename: "animal.jpeg",
+                                                 directory: Directory(.caches(additionalPath: "session-downloadz/")))
+                            .sink { completion in
+                                if case .failure = completion {
+                                    failSpec()
+                                    
+                                    complete()
+                                }
+                            } receiveValue: { fileURL in
+                                guard let imageData = try? Data(contentsOf: fileURL) else {
+                                    failSpec()
+                                    
+                                    return
+                                }
+                                
+                                expect(imageData.count).to.beGreaterThan(0)
+                                
+                                complete()
+                            }.store(in: &subscribers)
+                        }
+                    }
+                }
+                
+                describe("uploading") {
+                    var testBundle: Bundle!
+                    var multipartFormData: Data!
+                    
+                    beforeEach {
+                        testBundle = Bundle(for: self)
+                        
+                        let fileURL = testBundle.url(forResource: "file",
+                                                     withExtension: "json")!
+                        
+                        let fileData = try! Data(contentsOf: fileURL)
+
+                        let boundaryUUID = UUID().uuidString
+                        
+                        multipartFormData = MultipartFormDataBuilder().buildMultipartFormData(data: fileData,
+                                                                                              filename: "file.json",
+                                                                                              boundaryUUID: boundaryUUID,
+                                                                                              contentType: .octetStream)
+                        let multipartFormHeader = ["Content-Type": "multipart/form-data; boundary=Boundary-\(boundaryUUID)"]
+                        
+                        subject = PequenoNetworking(baseURL: "https://httpbin.org",
+                                                    headers: multipartFormHeader)
+                    }
+                    
+                    describe("JSONSerialization (ol' skoo)") {
+                        it("completes with deserialized json") {
+                            hangOn(for: .seconds(5)) { complete in
+                                subject.uploadFile(endpoint: "/post",
+                                                   parameters: nil,
+                                                   data: multipartFormData)
+                                .sink { completion in
+                                    if case .failure = completion {
+                                        failSpec()
+                                        
+                                        complete()
+                                    }
+                                } receiveValue: { jsonResponse in
+                                    guard let typedJSONResponse = jsonResponse as? [String: Any] else {
+                                        failSpec()
+
+                                        return
+                                    }
+
+                                    expect(typedJSONResponse).toNot.beEmpty()
+                                    
+                                    complete()
+                                }.store(in: &subscribers)
+                            }
+                        }
+                    }
+                    
+                    describe("Codable") {
+                        var future: Future<HTTPBin, Error>!
+                        
+                        beforeEach {
+                            future = subject.uploadFile(endpoint: "/post",
+                                                        parameters: nil,
+                                                        data: multipartFormData)
+                        }
+                        
+                        it("completes with deserialized json") {
+                            hangOn(for: .seconds(5)) { complete in
+                                future.sink { completion in
+                                    if case .failure = completion {
+                                        failSpec()
+                                        
+                                        complete()
+                                    }
+                                } receiveValue: { jsonResponse in
+                                    expect(jsonResponse.url).to.equal("https://httpbin.org/post")
+                                    expect(jsonResponse.files!.file).to.contain("Flipper")
+                                    
+                                    complete()
+                                }.store(in: &subscribers)
+                            }
                         }
                     }
                 }

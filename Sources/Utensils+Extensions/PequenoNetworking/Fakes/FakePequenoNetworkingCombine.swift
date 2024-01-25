@@ -25,10 +25,10 @@ import Combine
 import Capsule
 import Utensils
 
-// Note: Result<Any, PequenoNetworking.Error> is used for the stubbed results due to
+// Note: Result<Any, Error> is used for the stubbed results due to
 // warning messages about "shadowing" at the class level.
 
-public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
+public class FakePequenoNetworkingCombine: Fake, PequenoNetworkingCombineProtocol {
     // MARK: - Captured properties
     
     // MARK: - JSONSerialization (ol' skoo)
@@ -65,28 +65,53 @@ public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
     public var capturedCodablePatchEndpoint: String?
     public var capturedCodablePatchBody: [String: Any]?
     
+    // MARK: - File transfers
+    
+    public var capturedDownloadFileEndpoint: String?
+    public var capturedDownloadFileParameters: [String: String]?
+    public var capturedDownloadFileFilename: String?
+    public var capturedDownloadFileDirectory: Directory?
+
+    public var capturedUploadFileEndpoint: String?
+    public var capturedUploadFileParameters: [String: String]?
+    public var capturedUploadFileData: Data?
+    
+    public var capturedCodableUploadFileEndoint: String?
+    public var capturedCodableUploadFileParameters: [String: String]?
+    public var capturedCodableUploadFileData: Data?
+    
     // MARK: - Stubbed properties
     
     // MARK: - JSONSerialization (ol' skoo)
     
-    public var stubbedGetResult: Result<Any, PequenoNetworking.Error> = .success("GET")
-    public var stubbedDeleteResult: Result<Any, PequenoNetworking.Error> = .success("DELETE")
-    public var stubbedPostResult: Result<Any, PequenoNetworking.Error> = .success("POST")
-    public var stubbedPutResult: Result<Any, PequenoNetworking.Error> = .success("PUT")
-    public var stubbedPatchResult: Result<Any, PequenoNetworking.Error> = .success("PATCH")
+    public var stubbedGetResult: Result<Any, Error> = .success("GET")
+    public var stubbedDeleteResult: Result<Any, Error> = .success("DELETE")
+    public var stubbedPostResult: Result<Any, Error> = .success("POST")
+    public var stubbedPutResult: Result<Any, Error> = .success("PUT")
+    public var stubbedPatchResult: Result<Any, Error> = .success("PATCH")
     
     // MARK: - Codable
     
-    public var stubbedCodableGetResult: Result<Any, PequenoNetworking.Error> = .success("Codable-GET")
-    public var stubbedCodableDeleteResult: Result<Any, PequenoNetworking.Error> = .success("Codable-DELETE")
-    public var stubbedCodablePostResult: Result<Any, PequenoNetworking.Error> = .success("Codable-POST")
-    public var stubbedCodablePutResult: Result<Any, PequenoNetworking.Error> = .success("Codable-PUT")
-    public var stubbedCodablePatchResult: Result<Any, PequenoNetworking.Error> = .success("Codable-PATCH")
+    public var stubbedCodableGetResult: Result<Any, Error> = .success("Codable-GET")
+    public var stubbedCodableDeleteResult: Result<Any, Error> = .success("Codable-DELETE")
+    public var stubbedCodablePostResult: Result<Any, Error> = .success("Codable-POST")
+    public var stubbedCodablePutResult: Result<Any, Error> = .success("Codable-PUT")
+    public var stubbedCodablePatchResult: Result<Any, Error> = .success("Codable-PATCH")
+    
+    // MARK: - File transfers
+    
+    public var stubbedDownloadFileResult: Result<URL, Error> = .success(URL(string: "file:///filez/file.txt")!)
+    public var stubbedUploadFileResult: Result<Any, Error> = .success("Upload")
+    public var stubbedCodableUploadFileResult: Result<Any, Error> = .success("Codable-Upload")
+    
+    // MARK: - Init methods
+    
+    public override init() { }
     
     // MARK: - <PequenoNetworkingCombineProtocol>
     
     public func get(endpoint: String, 
-                    parameters: [String: String]?) -> Future<Any, PequenoNetworking.Error> {
+                    parameters: [String: String]?) -> Future<Any, Error> {
         capturedGetEndpoint = endpoint
         capturedGetParameters = parameters
         
@@ -100,7 +125,7 @@ public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
     }
     
     public func delete(endpoint: String, 
-                       parameters: [String: String]?) -> Future<Any, PequenoNetworking.Error> {
+                       parameters: [String: String]?) -> Future<Any, Error> {
         capturedDeleteEndpoint = endpoint
         capturedDeleteParameters = parameters
         
@@ -114,7 +139,7 @@ public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
     }
     
     public func post(endpoint: String, 
-                     body: [String: Any]?) -> Future<Any, PequenoNetworking.Error> {
+                     body: [String: Any]?) -> Future<Any, Error> {
         capturedPostEndpoint = endpoint
         capturedPostBody = body
         
@@ -128,7 +153,7 @@ public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
     }
     
     public func put(endpoint: String, 
-                    body: [String: Any]?) -> Future<Any, PequenoNetworking.Error> {
+                    body: [String: Any]?) -> Future<Any, Error> {
         capturedPutEndpoint = endpoint
         capturedPutBody = body
         
@@ -142,7 +167,7 @@ public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
     }
     
     public func patch(endpoint: String, 
-                      body: [String: Any]?) -> Future<Any, PequenoNetworking.Error> {
+                      body: [String: Any]?) -> Future<Any, Error> {
         capturedPatchEndpoint = endpoint
         capturedPatchBody = body
         
@@ -156,62 +181,108 @@ public class FakePequenoNetworkingCombine: PequenoNetworkingCombineProtocol {
     }
     
     public func get<T: Codable>(endpoint: String,
-                                parameters: [String: String]?) -> Future<T, PequenoNetworking.Error> {
+                                parameters: [String: String]?) -> Future<T, Error> {
         capturedCodableGetEndpoint = endpoint
         capturedCodableGetParameters = parameters
         
-        let future: Future<T, PequenoNetworking.Error> = generateTypedFuture(result: stubbedCodableGetResult)
+        let future: Future<T, Error> = generateTypedFuture(result: stubbedCodableGetResult)
         
         return future
     }
     
     public func delete<T: Codable>(endpoint: String,
-                                   parameters: [String: String]?) -> Future<T, PequenoNetworking.Error> {
+                                   parameters: [String: String]?) -> Future<T, Error> {
         capturedCodableDeleteEndpoint = endpoint
         capturedCodableDeleteParameters = parameters
         
-        let future: Future<T, PequenoNetworking.Error> = generateTypedFuture(result: stubbedCodableDeleteResult)
+        let future: Future<T, Error> = generateTypedFuture(result: stubbedCodableDeleteResult)
         
         return future
     }
     
     public func post<T: Codable>(endpoint: String,
-                                 body: [String: Any]?) -> Future<T, PequenoNetworking.Error> {
+                                 body: [String: Any]?) -> Future<T, Error> {
         capturedCodablePostEndpoint = endpoint
         capturedCodablePostBody = body
         
-        let future: Future<T, PequenoNetworking.Error> = generateTypedFuture(result: stubbedCodablePostResult)
+        let future: Future<T, Error> = generateTypedFuture(result: stubbedCodablePostResult)
         
         return future
     }
     
     public func put<T: Codable>(endpoint: String,
-                                body: [String: Any]?) -> Future<T, PequenoNetworking.Error> {
+                                body: [String: Any]?) -> Future<T, Error> {
         capturedCodablePutEndpoint = endpoint
         capturedCodablePutBody = body
         
-        let future: Future<T, PequenoNetworking.Error> = generateTypedFuture(result: stubbedCodablePutResult)
+        let future: Future<T, Error> = generateTypedFuture(result: stubbedCodablePutResult)
         
         return future
     }
     
     public func patch<T: Codable>(endpoint: String,
-                                  body: [String: Any]?) -> Future<T, PequenoNetworking.Error> {
+                                  body: [String: Any]?) -> Future<T, Error> {
         capturedCodablePatchEndpoint = endpoint
         capturedCodablePatchBody = body
         
-        let future: Future<T, PequenoNetworking.Error> = generateTypedFuture(result: stubbedCodablePatchResult)
+        let future: Future<T, Error> = generateTypedFuture(result: stubbedCodablePatchResult)
+        
+        return future
+    }
+    
+    public func downloadFile(endpoint: String, 
+                             parameters: [String: String]?,
+                             filename: String,
+                             directory: Directory) -> Future<URL, Error> {
+        capturedDownloadFileEndpoint = endpoint
+        capturedDownloadFileParameters = parameters
+        capturedDownloadFileFilename = filename
+        capturedDownloadFileDirectory = directory
+        
+        let future = Future { [weak self] promise in
+            guard let self = self else { return }
+            
+            promise(self.stubbedDownloadFileResult)
+        }
+        
+        return future
+    }
+    
+    public func uploadFile(endpoint: String, 
+                           parameters: [String: String]?,
+                           data: Data) -> Future<Any, Error> {
+        capturedUploadFileEndpoint = endpoint
+        capturedUploadFileParameters = parameters
+        capturedUploadFileData = data
+        
+        let future = Future { [weak self] promise in
+            guard let self = self else { return }
+            
+            promise(self.stubbedUploadFileResult)
+        }
+        
+        return future
+    }
+    
+    public func uploadFile<T: Codable>(endpoint: String,
+                                       parameters: [String: String]?,
+                                       data: Data) -> Future<T, Error> {
+        capturedCodableUploadFileEndoint = endpoint
+        capturedCodableUploadFileParameters = parameters
+        capturedCodableUploadFileData = data
+        
+        let future: Future<T, Error> = generateTypedFuture(result: stubbedCodableUploadFileResult)
         
         return future
     }
     
     // MARK: - Private properties
     
-    private func generateTypedFuture<T: Codable>(result: Result<Any, PequenoNetworking.Error>) -> Future<T, PequenoNetworking.Error> {
-        let future = Future<T, PequenoNetworking.Error> { promise in
+    private func generateTypedFuture<T: Codable>(result: Result<Any, Error>) -> Future<T, Error> {
+        let future = Future<T, Error> { promise in
             let typedResult = result.map { value in
                 guard let properlyTypedValue = value as? T else {
-                    preconditionFailure("The stubbed codable result success value is not the correct type")
+                    preconditionFailure("The stubbed codable result value is not the correct type")
                 }
                 
                 return properlyTypedValue

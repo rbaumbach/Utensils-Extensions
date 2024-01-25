@@ -27,7 +27,7 @@ import Utensils
 // Note: Any? is used for the stubbed values due to warning messages about "shadowing" at the
 // class level. As a consumer you can cast to T.
 
-public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
+public class FakePequenoNetworkingAsync: Fake, PequenoNetworkingAsyncProtocol {
     // MARK: - Captured properties
     
     // MARK: - JSONSerialization (ol' skoo)
@@ -64,6 +64,21 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
     public var capturedCodablePatchEndpoint: String?
     public var capturedCodablePatchBody: [String: Any]?
     
+    // MARK: - File transfers
+    
+    public var capturedDownloadFileEndpoint: String?
+    public var capturedDownloadFileParameters: [String: String]?
+    public var capturedDownloadFileFilename: String?
+    public var capturedDownloadFileDirectory: Directory?
+    
+    public var capturedUploadFileEndpoint: String?
+    public var capturedUploadFileParameters: [String: String]?
+    public var capturedUploadFileData: Data?
+    
+    public var capturedCodableUploadFileEndpoint: String?
+    public var capturedCodableUploadFileParameters: [String: String]?
+    public var capturedCodableUploadFileData: Data?
+    
     // MARK: - Stubbed properties
     
     // MARK: - JSONSerialization (ol' skoo)
@@ -81,6 +96,12 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
     public var stubbedCodablePost: Any = "post"
     public var stubbedCodablePut: Any = "put"
     public var stubbedCodablePatch: Any = "patch"
+    
+    // MARK: - File transfers
+    
+    public var stubbedDownloadFile = URL(string: "file///filez/file.txt")!
+    public var stubbedUploadFile: Any = "upload"
+    public var stubbedCodableUploadFile: Any = "upload"
     
     // MARK: - Public properties
     
@@ -100,13 +121,19 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
     public var shouldThrowCodablePutError = false
     public var shouldThrowCodablePatchError = false
     
+    // MARK: - File transfers
+    
+    public var shouldThrowDownloadFileError = false
+    public var shouldThrowUploadFileError = false
+    public var shouldThrowCodableUploadFileError = false
+    
     // MARK: - Init methods
     
-    public init() { }
+    public override init() { }
     
     // MARK: - <PequenoNetworkingAsyncProtocol>
     
-    public func get(endpoint: String, 
+    public func get(endpoint: String,
                     parameters: [String: String]?) async throws -> Any {
         capturedGetEndpoint = endpoint
         capturedGetParameters = parameters
@@ -118,7 +145,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return stubbedGet
     }
     
-    public func delete(endpoint: String, 
+    public func delete(endpoint: String,
                        parameters: [String: String]?) async throws -> Any {
         capturedDeleteEndpoint = endpoint
         capturedDeleteParameters = parameters
@@ -130,7 +157,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return stubbedDelete
     }
     
-    public func post(endpoint: String, 
+    public func post(endpoint: String,
                      body: [String: Any]?) async throws -> Any {
         capturedPostEndpoint = endpoint
         capturedPostBody = body
@@ -142,7 +169,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return stubbedPost
     }
     
-    public func put(endpoint: String, 
+    public func put(endpoint: String,
                     body: [String: Any]?) async throws -> Any {
         capturedPutEndpoint = endpoint
         capturedPutBody = body
@@ -154,7 +181,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return stubbedPut
     }
     
-    public func patch(endpoint: String, 
+    public func patch(endpoint: String,
                       body: [String: Any]?) async throws -> Any {
         capturedPatchEndpoint = endpoint
         capturedPatchBody = body
@@ -205,7 +232,7 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         return typedStubbedValue
     }
     
-    public func put<T: Codable>(endpoint: String, 
+    public func put<T: Codable>(endpoint: String,
                                 body: [String: Any]?) async throws -> T {
         if shouldThrowCodablePutError {
             throw FakeGenericError.whoCares
@@ -226,6 +253,54 @@ public class FakePequenoNetworkingAsync: PequenoNetworkingAsyncProtocol {
         
         guard let typedStubbedValue = stubbedCodablePatch as? T else {
             preconditionFailure("The stubbed codable get value is not the correct type")
+        }
+        
+        return typedStubbedValue
+    }
+    
+    public func downloadFile(endpoint: String,
+                             parameters: [String: String]?,
+                             filename: String,
+                             directory: Directory) async throws -> URL {
+        capturedDownloadFileEndpoint = endpoint
+        capturedDownloadFileParameters = parameters
+        capturedDownloadFileFilename = filename
+        capturedDownloadFileDirectory = directory
+        
+        if shouldThrowDownloadFileError {
+            throw FakeGenericError.whoCares
+        }
+        
+        return stubbedDownloadFile
+    }
+    
+    public func uploadFile(endpoint: String,
+                           parameters: [String: String]?,
+                           data: Data) async throws -> Any {
+        capturedUploadFileEndpoint = endpoint
+        capturedUploadFileParameters = parameters
+        capturedUploadFileData = data
+        
+        if shouldThrowUploadFileError {
+            throw FakeGenericError.whoCares
+        }
+        
+        return stubbedUploadFile
+    }
+    
+    public func uploadFile<T: Codable>(endpoint: String,
+                                       parameters: [String: String]?,
+                                       data: Data) async throws -> T {
+        capturedCodableUploadFileEndpoint = endpoint
+        capturedCodableUploadFileParameters = parameters
+        capturedCodableUploadFileData = data
+        
+        if shouldThrowCodableUploadFileError {
+            throw FakeGenericError.whoCares
+        }
+        
+        guard let typedStubbedValue = stubbedCodableUploadFile as? T else {
+            preconditionFailure("The stubbed codable upload file value is not the correct type")
         }
         
         return typedStubbedValue

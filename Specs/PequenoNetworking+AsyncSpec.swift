@@ -118,7 +118,7 @@ final class PequenoNetworking_AsyncSpec: AsyncSpec {
                 }
             }
             
-            describe("codable networking") {
+            describe("Codable networking") {
                 var actualResult: String!
                 
                 describe("GET") {
@@ -197,6 +197,71 @@ final class PequenoNetworking_AsyncSpec: AsyncSpec {
                         let typedBody = fakeNetworkingEngine.capturedPatchBody as! [String: String]
                        
                         expect(typedBody).to.equal(["ghost": "slimer"])
+                    }
+                }
+            }
+            
+            describe("File transfers") {
+                describe("downloading") {
+                    var actualURL: URL!
+                    
+                    beforeEach {
+                        actualURL = try await subject.downloadFile(endpoint: "/download",
+                                                                        parameters: ["ghost": "slimer"],
+                                                                        filename: "ecto-1",
+                                                                        directory: Directory())
+                    }
+                    
+                    it("returns file url") {
+                        expect(actualURL).to.equal(URL(string: "https://99-stubby-99.party"))
+                        
+                        expect(fakeNetworkingEngine.capturedDownloadFileEndpoint).to.equal("/download")
+                        expect(fakeNetworkingEngine.capturedDownloadFileParameters).to.equal(["ghost": "slimer"])
+                        expect(fakeNetworkingEngine.capturedDownloadFileFilename).to.equal("ecto-1")
+                        
+                        let typedDownloadFileDirectory = fakeNetworkingEngine.capturedDownloadFileDirectory as? Directory
+                        
+                        expect(typedDownloadFileDirectory).to.equal(Directory())
+                    }
+                }
+                
+                describe("uploading") {
+                    describe("JSONSerialization (ol' skoo)") {
+                        var actualResponse: Any!
+                        
+                        beforeEach {
+                            actualResponse = try await subject.uploadFile(endpoint: "/upload",
+                                                                          parameters: ["ghost": "slimer"],
+                                                                          data: "data".data(using: .utf8)!)
+                        }
+                        
+                        it("returns json response") {
+                            let typedResponse = actualResponse as! String
+                            
+                            expect(typedResponse).to.equal("Éxito")
+                            
+                            expect(fakeClassicNetworkingEngine.capturedUploadFileEndpoint).to.equal("/upload")
+                            expect(fakeClassicNetworkingEngine.capturedUploadFileParameters).to.equal(["ghost": "slimer"])
+                            expect(fakeClassicNetworkingEngine.capturedUploadFileData).to.equal("data".data(using: .utf8)!)
+                        }
+                    }
+                    
+                    describe("Codable") {
+                        var actualResponse: String!
+                        
+                        beforeEach {
+                            actualResponse = try await subject.uploadFile(endpoint: "/upload",
+                                                                          parameters: ["ghost": "slimer"],
+                                                                          data: "data".data(using: .utf8)!)
+                        }
+                        
+                        it("returns deserialized codable model") {
+                            expect(actualResponse).to.equal("Éxito")
+                            
+                            expect(fakeNetworkingEngine.capturedUploadFileEndpoint).to.equal("/upload")
+                            expect(fakeNetworkingEngine.capturedUploadFileParameters).to.equal(["ghost": "slimer"])
+                            expect(fakeNetworkingEngine.capturedUploadFileData).to.equal("data".data(using: .utf8)!)
+                        }
                     }
                 }
             }

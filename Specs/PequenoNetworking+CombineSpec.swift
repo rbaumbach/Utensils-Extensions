@@ -28,7 +28,7 @@ final class PequenoNetworking_CombineSpec: QuickSpec {
             }
             
             describe("JSONSerialization (ol' skoo)") {
-                var stubbedResult: Result<Any, PequenoNetworking.Error>!
+                var stubbedResult: Result<Any, Error>!
                 var actualJSONResponse: Any!
                 
                 beforeEach {
@@ -165,10 +165,10 @@ final class PequenoNetworking_CombineSpec: QuickSpec {
                 }
             }
             
-            describe("codable networking") {
-                var future: Future<String, PequenoNetworking.Error>!
+            describe("Codable networking") {
+                var future: Future<String, Error>!
                 
-                var stubbedResult: Result<String, PequenoNetworking.Error>!
+                var stubbedResult: Result<String, Error>!
                 var actualJSONResponse: String!
                 
                 beforeEach {
@@ -185,7 +185,7 @@ final class PequenoNetworking_CombineSpec: QuickSpec {
                             actualJSONResponse = jsonResponse
                         }.store(in: &subscribers)
                         
-                        let typedCompletionHandler = fakeNetworkingEngine.capturedGetCompletionHandler as? (Result<String, PequenoNetworking.Error>) -> Void
+                        let typedCompletionHandler = fakeNetworkingEngine.capturedGetCompletionHandler as? (Result<String, Error>) -> Void
                         
                         typedCompletionHandler?(stubbedResult)
                     }
@@ -210,7 +210,7 @@ final class PequenoNetworking_CombineSpec: QuickSpec {
                             actualJSONResponse = jsonResponse
                         }.store(in: &subscribers)
                         
-                        let typedCompletionHandler = fakeNetworkingEngine.capturedDeleteCompletionHandler as? (Result<String, PequenoNetworking.Error>) -> Void
+                        let typedCompletionHandler = fakeNetworkingEngine.capturedDeleteCompletionHandler as? (Result<String, Error>) -> Void
                         
                         typedCompletionHandler?(stubbedResult)
                     }
@@ -235,7 +235,7 @@ final class PequenoNetworking_CombineSpec: QuickSpec {
                             actualJSONResponse = jsonResponse
                         }.store(in: &subscribers)
                         
-                        let typedCompletionHandler = fakeNetworkingEngine.capturedPostCompletionHandler as? (Result<String, PequenoNetworking.Error>) -> Void
+                        let typedCompletionHandler = fakeNetworkingEngine.capturedPostCompletionHandler as? (Result<String, Error>) -> Void
                         
                         typedCompletionHandler?(stubbedResult)
                     }
@@ -263,7 +263,7 @@ final class PequenoNetworking_CombineSpec: QuickSpec {
                             actualJSONResponse = jsonResponse
                         }.store(in: &subscribers)
                         
-                        let typedCompletionHandler = fakeNetworkingEngine.capturedPutCompletionHandler as? (Result<String, PequenoNetworking.Error>) -> Void
+                        let typedCompletionHandler = fakeNetworkingEngine.capturedPutCompletionHandler as? (Result<String, Error>) -> Void
                         
                         typedCompletionHandler?(stubbedResult)
                     }
@@ -291,7 +291,7 @@ final class PequenoNetworking_CombineSpec: QuickSpec {
                             actualJSONResponse = jsonResponse
                         }.store(in: &subscribers)
                         
-                        let typedCompletionHandler = fakeNetworkingEngine.capturedPatchCompletionHandler as? (Result<String, PequenoNetworking.Error>) -> Void
+                        let typedCompletionHandler = fakeNetworkingEngine.capturedPatchCompletionHandler as? (Result<String, Error>) -> Void
                         
                         typedCompletionHandler?(stubbedResult)
                     }
@@ -306,6 +306,108 @@ final class PequenoNetworking_CombineSpec: QuickSpec {
                         let typedBody = fakeNetworkingEngine.capturedPatchBody as! [String: String]
                        
                         expect(typedBody).to.equal(["ghost": "slimer"])
+                    }
+                }
+            }
+            
+            describe("File transfers") {
+                describe("downloading") {
+                    var actualURL: URL!
+                    var stubbedResult: Result<URL, Error>!
+                    
+                    beforeEach {
+                        subject.downloadFile(endpoint: "/download",
+                                             parameters: ["ghost": "slimer"],
+                                             filename: "ecto-1",
+                                             directory: Directory())
+                        .sink { _ in }
+                        receiveValue: { url in
+                            actualURL = url
+                        }.store(in: &subscribers)
+                        
+                        stubbedResult = .success(URL(string: "file:///filez/file.txt")!)
+                        
+                        fakeNetworkingEngine.capturedDownloadFileCompletionHandler?(stubbedResult)
+                    }
+                    
+                    it("returns file url") {
+                        expect(actualURL).to.equal(URL(string: "file:///filez/file.txt"))
+                        
+                        expect(fakeNetworkingEngine.capturedDownloadFileBaseURL).to.equal("https://ghost.busters")
+                        expect(fakeNetworkingEngine.capturedDownloadFileHeaders).to.equal(["city": "new-york"])
+                        expect(fakeNetworkingEngine.capturedDownloadFileEndpoint).to.equal("/download")
+                        expect(fakeNetworkingEngine.capturedDownloadFileParameters).to.equal(["ghost": "slimer"])
+                        expect(fakeNetworkingEngine.capturedDownloadFileFilename).to.equal("ecto-1")
+                        
+                        let typedDownloadFileDirectory = fakeNetworkingEngine.capturedDownloadFileDirectory as? Directory
+                        
+                        expect(typedDownloadFileDirectory).to.equal(Directory())
+                    }
+                }
+                
+                describe("uploading") {
+                    describe("JSONSerialization (ol' skoo)") {
+                        var actualResponse: Any!
+                        var stubbedResult: Result<Any, Error>!
+                        
+                        beforeEach {
+                            subject.uploadFile(endpoint: "/upload",
+                                               parameters: ["ghost": "slimer"],
+                                               data: "data".data(using: .utf8)!)
+                            .sink { _ in }
+                            receiveValue: { response in
+                                actualResponse = response
+                            }.store(in: &subscribers)
+                            
+                            stubbedResult = .success("Back off man! I'm a scientist!")
+                            
+                            fakeClassicNetworkingEngine.capturedUploadFileCompletionHandler?(stubbedResult)
+                        }
+                        
+                        it("returns json response") {
+                            let typedResponse = actualResponse as! String
+                            
+                            expect(typedResponse).to.equal("Back off man! I'm a scientist!")
+                            
+                            expect(fakeClassicNetworkingEngine.capturedUploadFileBaseURL).to.equal("https://ghost.busters")
+                            expect(fakeClassicNetworkingEngine.capturedUploadFileHeaders).to.equal(["city": "new-york"])
+                            expect(fakeClassicNetworkingEngine.capturedUploadFileEndpoint).to.equal("/upload")
+                            expect(fakeClassicNetworkingEngine.capturedUploadFileParameters).to.equal(["ghost": "slimer"])
+                            expect(fakeClassicNetworkingEngine.capturedUploadFileData).to.equal("data".data(using: .utf8)!)
+                        }
+                    }
+                    
+                    describe("Codable") {
+                        var future: Future<String, Error>!
+                        
+                        var stubbedResult: Result<String, Error>!
+                        var actualResponse: String!
+                        
+                        beforeEach {
+                            stubbedResult = .success("Back off man! I'm a scientist!")
+
+                            future = subject.uploadFile(endpoint: "/upload",
+                                                        parameters: ["ghost": "slimer"],
+                                                        data: "data".data(using: .utf8)!)
+                            future.sink { _ in }
+                            receiveValue: { response in
+                                actualResponse = response
+                            }.store(in: &subscribers)
+                            
+                            let typedCompletionHandler = fakeNetworkingEngine.capturedUploadFileCompletionHandler as? (Result<String, Error>) -> Void
+                            
+                            typedCompletionHandler?(stubbedResult)
+                        }
+                        
+                        it("returns deserialized codable model") {
+                            expect(actualResponse).to.equal("Back off man! I'm a scientist!")
+                            
+                            expect(fakeNetworkingEngine.capturedUploadFileBaseURL).to.equal("https://ghost.busters")
+                            expect(fakeNetworkingEngine.capturedUploadFileHeaders).to.equal(["city": "new-york"])
+                            expect(fakeNetworkingEngine.capturedUploadFileEndpoint).to.equal("/upload")
+                            expect(fakeNetworkingEngine.capturedUploadFileParameters).to.equal(["ghost": "slimer"])
+                            expect(fakeNetworkingEngine.capturedUploadFileData).to.equal("data".data(using: .utf8)!)
+                        }
                     }
                 }
             }

@@ -39,11 +39,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/rbaumbach/Utensils",
-            from: "0.3.2"
+            from: "0.5.0"
         ),
         .package(
             url: "https://github.com/rbaumbach/Capsule",
-            from: "1.4.0"
+            from: "1.5.0"
         )
     ],
     targets: [
